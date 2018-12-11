@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.seamless:seamless-util:1.1.2"
+    implementation "org.seamless:seamless-http:1.1.2"
+    implementation "org.seamless:seamless-xml:1.1.2"
+
+    api "javax.enterprise:cdi-api:1.2"
+    api "net.sf.kxml:kxml2:2.3.0"
+
+    compileOnly "org.eclipse.jetty:jetty-server:8.1.22.v20160922"
+    compileOnly "org.eclipse.jetty:jetty-servlet:8.1.22.v20160922"
+    compileOnly "org.eclipse.jetty:jetty-client:8.1.22.v20160922"
+}
+
