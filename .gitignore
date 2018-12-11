@@ -8,3 +8,5 @@ MANIFEST.MF
 out
 
 .gradle/
+**/build/
+local.properties

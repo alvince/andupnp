@@ -36,7 +36,6 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.net.URLStreamHandlerFactory;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -97,26 +96,6 @@ public class StreamClientImpl implements StreamClient {
 
         log.fine("Using persistent HTTP stream client connections: " + configuration.isUsePersistentConnections());
         System.setProperty("http.keepAlive", Boolean.toString(configuration.isUsePersistentConnections()));
-
-        // Hack the environment to allow additional HTTP methods
-        if (System.getProperty(HACK_STREAM_HANDLER_SYSTEM_PROPERTY) == null) {
-            log.fine("Setting custom static URLStreamHandlerFactory to work around bad JDK defaults");
-            try {
-                // Use reflection to avoid dependency on sun.net package so this class at least
-                // loads on Android, even if it doesn't work...
-                URL.setURLStreamHandlerFactory(
-                    (URLStreamHandlerFactory) Class.forName(
-                        "org.fourthline.cling.transport.impl.FixedSunURLStreamHandler"
-                    ).newInstance()
-                );
-            } catch (Throwable t) {
-                throw new InitializationException(
-                    "Failed to set modified URLStreamHandlerFactory in this environment."
-                        + " Can't use bundled default client based on HTTPURLConnection, see manual."
-                );
-            }
-            System.setProperty(HACK_STREAM_HANDLER_SYSTEM_PROPERTY, "alreadyWorkedAroundTheEvilJDK");
-        }
     }
 
     @Override

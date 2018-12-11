@@ -25,6 +25,10 @@ android {
     }
 }
 
+repositories {
+    maven { url = 'http://4thline.org/m2/' }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.seamless:seamless-util:1.1.2"

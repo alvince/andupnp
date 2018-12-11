@@ -45,7 +45,6 @@ import org.fourthline.cling.transport.spi.SOAPActionProcessor;
 import org.fourthline.cling.transport.spi.StreamClient;
 import org.fourthline.cling.transport.spi.StreamServer;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.concurrent.Executor;
@@ -79,7 +78,6 @@ public class ManagedUpnpServiceConfiguration implements UpnpServiceConfiguration
 
     private Namespace namespace;
 
-    @PostConstruct
     public void init() {
 
         if (ModelUtil.ANDROID_RUNTIME) {
